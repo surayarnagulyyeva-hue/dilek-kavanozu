@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dilek Kavanozu</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f0c29">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+:root {
+  --bg-deep: #0f0c29;
+  --bg-mid: #302b63;
+  --bg-light: #24243e;
+  --accent-gold: #ffd700;
+  --accent-pink: #ff6b9d;
+  --accent-purple: #c084fc;
+  --accent-blue: #60a5fa;
+  --accent-green: #4ade80;
+  --accent-orange: #fb923c;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --glass: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.15);
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+body.light-theme {
+  --bg-deep: #fdf6ec;
+  --bg-mid: #f7e9d7;
+  --bg-light: #ffffff;
+  --accent-gold: #d4a017;
+  --accent-pink: #e8638a;
+  --accent-purple: #9b6fd6;
+  --accent-blue: #3b82f6;
+  --accent-green: #16a34a;
+  --accent-orange: #ea580c;
+  --text-primary: #2d2a3d;
+  --text-secondary: #6b6580;
+  --glass: rgba(0,0,0,0.04);
+  --glass-border: rgba(0,0,0,0.1);
+  --shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+body.light-theme .stars-bg {
+  opacity: 0.15;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-light) 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.stars-bg {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 230px 80px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 350px 50px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 450px 200px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 500px 100px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 600px 250px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 700px 80px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 800px 180px, rgba(255,255,255,0.7), transparent);
+  background-size: 850px 350px;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.screen {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: none;
+}
+.screen.active { display: block; }
+
+.hidden { display: none !important; }
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  animation: fadeInUp 1s ease;
+}
+
+.jar-icon {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255,215,0,0.4));
+}
+.jar-icon.small { font-size: 3rem; }
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(30px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.welcome-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-pink), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-sub {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.welcome-hint {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.btn-magic {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(192,132,252,0.4);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-magic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(192,132,252,0.6);
+}
+
+.btn-magic:active { transform: scale(0.98); }
+.btn-full { width: 100%; }
+
+.btn-secondary {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.btn-danger {
+  background: rgba(239,68,68,0.2);
+  border: 1px solid rgba(239,68,68,0.5);
+  color: #fca5a5;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.btn-danger:hover { background: rgba(239,68,68,0.3); }
+
+.btn-small {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s;
+}
+
+.btn-small:hover { background: rgba(255,255,255,0.15); }
+
+.btn-small.glow {
+  background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,107,157,0.2));
+  border-color: rgba(255,215,0,0.4);
+}
+
+.lock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.lock-content h2 {
+  margin-bottom: 1.5rem;
+  color: var(--accent-gold);
+}
+
+.lock-content input {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 14px 20px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 200px;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.lock-content input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 15px rgba(192,132,252,0.3);
+}
+
+.error-text {
+  color: #ef4444;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 0;
+  background: rgba(15,12,41,0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+body.light-theme .top-bar {
+  background: rgba(255,255,255,0.8);
+}
+
+.logo-small {
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.icon-btn {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.icon-btn:hover {
+  background: rgba(255,255,255,0.15);
+  transform: rotate(90deg);
+}
+
+.main-content {
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.lucky-star {
+  background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,107,157,0.15));
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 20px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.5s ease;
+}
+
+.lucky-label {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.lucky-star p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(5px);
+}
+
+.stat-item { text-align: center; }
+
+.stat-num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btn-giant {
+  background: linear-gradient(135deg, rgba(192,132,252,0.2), rgba(255,107,157,0.2));
+  border: 2px solid rgba(192,132,252,0.4);
+  border-radius: 24px;
+  padding: 1.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.btn-giant::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+
+.btn-giant:hover::before { left: 100%; }
+
+.btn-giant:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(192,132,252,0.3);
+  border-color: rgba(192,132,252,0.7);
+}
+
+.btn-giant.secondary {
+  background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(74,222,128,0.15));
+  border-color: rgba(96,165,250,0.3);
+}
+
+.btn-giant.secondary:hover {
+  box-shadow: 0 10px 30px rgba(96,165,250,0.25);
+  border-color: rgba(96,165,250,0.6);
+}
+
+.btn-giant.tertiary {
+  background: linear-gradient(135deg, rgba(255,215,0,0.18), rgba(251,146,60,0.18));
+  border-color: rgba(255,215,0,0.35);
+}
+
+.btn-giant.tertiary:hover {
+  box-shadow: 0 10px 30px rgba(255,215,0,0.25);
+  border-color: rgba(255,215,0,0.6);
+}
+
+.giant-icon { font-size: 2.5rem; }
+.giant-text { font-size: 1.3rem; font-weight: 700; }
+.giant-sub { font-size: 0.85rem; color: var(--text-secondary); }
+
+.settings-desc-inline {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+
+#ritualCustomTarget {
+  width: 100%;
+  margin-top: 0.6rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-family: inherit;
+  outline: none;
+}
+
+.ritual-counter-display {
+  font-size: 4rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent-gold);
+  margin: 1rem 0 0.3rem;
+}
+
+.ritual-target-label {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+.ritual-tap-btn {
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 1.4rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(192,132,252,0.4);
+  transition: transform 0.15s ease;
+  line-height: 1.4;
+  font-family: inherit;
+}
+
+.ritual-tap-btn:active { transform: scale(0.92); }
+
+.ritual-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.ritual-item {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 0.8rem;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.ritual-item:hover { background: rgba(255,255,255,0.1); }
+
+.ritual-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ritual-item-text { font-size: 0.9rem; }
+.ritual-item-progress {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.ritual-item.completed { border-color: rgba(255,215,0,0.4); }
+
+.section-header { margin-bottom: 1rem; }
+
+.section-header h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.filter-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.filter-row select {
+  flex: 1;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+.wish-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.wish-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.2rem;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.wish-card:hover {
+  transform: translateX(5px);
+  border-color: rgba(255,255,255,0.25);
+}
+
+.wish-card.completed {
+  border-color: rgba(255,215,0,0.4);
+  background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
+}
+
+.wish-card.completed::after {
+  content: '✨';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+.wish-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.wish-category {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wish-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.wish-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  word-wrap: break-word;
+}
+
+.wish-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.wish-actions button {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.wish-actions button:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-primary);
+}
+
+.wish-actions .btn-done:hover {
+  background: rgba(255,215,0,0.2);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.wish-actions .btn-delete:hover {
+  background: rgba(239,68,68,0.2);
+  border-color: rgba(239,68,68,0.5);
+  color: #fca5a5;
+}
+
+.video-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(239,68,68,0.2);
+  color: #fca5a5;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.video-badge:hover {
+  background: rgba(239,68,68,0.3);
+}
+
+.cat-love { background: rgba(255,107,157,0.2); color: #ff6b9d; }
+.cat-money { background: rgba(74,222,128,0.2); color: #4ade80; }
+.cat-health { background: rgba(96,165,250,0.2); color: #60a5fa; }
+.cat-career { background: rgba(251,146,60,0.2); color: #fb923c; }
+.cat-family { background: rgba(192,132,252,0.2); color: #c084fc; }
+.cat-growth { background: rgba(255,215,0,0.2); color: #ffd700; }
+.cat-surprise { background: rgba(148,163,184,0.2); color: #94a3b8; }
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+}
+
+.empty-jar {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-sub {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  position: relative;
+  background: linear-gradient(135deg, var(--bg-light), var(--bg-mid));
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 101;
+  box-shadow: var(--shadow);
+  animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+  from { opacity:0; transform: scale(0.9) translateY(20px); }
+  to { opacity:1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px; right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 32px; height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-primary);
+}
+
+.modal-content h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.3rem;
+}
+
+.form-group { margin-bottom: 1.2rem; }
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.form-group textarea,
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  resize: vertical;
+  transition: all 0.3s;
+}
+
+.form-group textarea:focus,
+.form-group input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 15px rgba(192,132,252,0.2);
+}
+
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.pill:hover { background: rgba(255,255,255,0.1); }
+
+.pill.selected {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(192,132,252,0.4);
+}
+
+.file-input {
+  width: 100%;
+  background: var(--glass);
+  border: 2px dashed var(--glass-border);
+  color: var(--text-secondary);
+  padding: 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.file-input:hover { border-color: var(--accent-purple); }
+
+.video-preview {
+  margin-top: 0.8rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-preview video {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.motivation-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.motivation-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.quote-text {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--text-primary);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.motivation-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.lightbox-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 201;
+  width: 100%;
+  max-width: 600px;
+}
+
+.lightbox-content video {
+  width: 100%;
+  border-radius: 16px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px; right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 90;
+}
+
+.side-menu-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+}
+
+.side-menu-panel {
+  position: absolute;
+  top: 0; right: 0;
+  width: 85%;
+  max-width: 350px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--bg-light), var(--bg-deep));
+  border-left: 1px solid var(--glass-border);
+  padding: 1.5rem;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.side-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.setting-item { margin-bottom: 1.5rem; }
+
+.setting-item > span {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.setting-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 0.3rem;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  float: right;
+  margin-top: -30px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0; height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 26px;
+  transition: 0.3s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background: var(--text-secondary);
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle input:checked + .toggle-slider {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  border-color: transparent;
+}
+
+.toggle input:checked + .toggle-slider::before {
+  transform: translateX(24px);
+  background: white;
+}
+
+#pinSetupArea input {
+  width: 100%;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.custom-quotes-area {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.custom-quotes-area input {
+  flex: 1;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-family: inherit;
+  outline: none;
+}
+
+.quote-list {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.quote-item {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quote-item button {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.danger-zone {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.celebration {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(5px);
+}
+
+.celebration-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-align: center;
+  animation: celebratePop 0.6s ease;
+  z-index: 301;
+}
+
+@keyframes celebratePop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.confetti {
+  position: absolute;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle, var(--accent-gold) 2px, transparent 2px),
+    radial-gradient(circle, var(--accent-pink) 2px, transparent 2px),
+    radial-gradient(circle, var(--accent-purple) 2px, transparent 2px);
+  background-size: 50px 50px, 70px 70px, 90px 90px;
+  background-position: 0 0, 20px 40px, 40px 20px;
+  animation: confettiFall 3s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes confettiFall {
+  0% { background-position: 0 0, 20px 40px, 40px 20px; }
+  100% { background-position: 0 100vh, 20px calc(100vh + 40px), 40px calc(100vh + 20px); }
+}
+
+@media (min-width: 600px) {
+  .welcome-content h1 { font-size: 3.5rem; }
+  .jar-icon { font-size: 8rem; }
+  .btn-giant { padding: 2rem; }
+  .giant-icon { font-size: 3rem; }
+  .giant-text { font-size: 1.5rem; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- 🌟 HOŞGELDİN EKRANI -->
+<div id="welcomeScreen" class="screen active">
+  <div class="stars-bg"></div>
+  <div class="welcome-content">
+    <div class="jar-icon">🫙</div>
+    <h1>Dilek Kavanozu</h1>
+    <p class="welcome-sub">İçindeki dilekleri yıldızlara gönder.<br>Sadece sen ve kavanozun.</p>
+    <button id="startBtn" class="btn-magic">✨ Kavanozunu Aç</button>
+    <p class="welcome-hint">Tüm verilerin cihazında kalır, hiçbir yere gönderilmez.</p>
+  </div>
+</div>
+
+<!-- 🔐 KİLİT EKRANI (varsa) -->
+<div id="lockScreen" class="screen hidden">
+  <div class="stars-bg"></div>
+  <div class="lock-content">
+    <div class="jar-icon small">🔒</div>
+    <h2>Kavanozun Kilitli</h2>
+    <input type="password" id="pinInput" inputmode="numeric" maxlength="6" placeholder="PIN Kodun">
+    <button id="pinSubmit" class="btn-magic">Aç</button>
+    <p id="pinError" class="error-text hidden">Yanlış PIN</p>
+  </div>
+</div>
+
+<!-- 🏠 ANA UYGULAMA -->
+<div id="app" class="screen hidden">
+  <div class="stars-bg"></div>
+  
+  <header class="top-bar">
+    <div class="logo-small">🫙 Dilek Kavanozu</div>
+    <button id="menuBtn" class="icon-btn">☰</button>
+  </header>
+
+  <main class="main-content">
+    
+    <div id="luckyStarCard" class="lucky-star hidden">
+      <div class="lucky-label">⭐ Bugünün Şans Yıldızı</div>
+      <p id="luckyText"></p>
+      <button id="luckyClose" class="btn-small">Kapat</button>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span id="statTotal" class="stat-num">0</span>
+        <span class="stat-label">Dilek</span>
+      </div>
+      <div class="stat-item">
+        <span id="statDone" class="stat-num">0</span>
+        <span class="stat-label">Gerçekleşti</span>
+      </div>
+      <div class="stat-item">
+        <span id="statStreak" class="stat-num">0</span>
+        <span class="stat-label">Günlük Seri</span>
+      </div>
+    </div>
+
+    <div class="hero-buttons">
+      <button id="wishBtn" class="btn-giant">
+        <span class="giant-icon">✨</span>
+        <span class="giant-text">Dilek Dile</span>
+        <span class="giant-sub">Yeni bir dilek kavanoza ekle</span>
+      </button>
+      
+      <button id="motivationBtn" class="btn-giant secondary">
+        <span class="giant-icon">💫</span>
+        <span class="giant-text">Motivasyon Sözleri</span>
+        <span class="giant-sub">Bugün sana ne söylenmeli?</span>
+      </button>
+
+      <button id="ritualBtn" class="btn-giant tertiary">
+        <span class="giant-icon">📿</span>
+        <span class="giant-text">Ritüel</span>
+        <span class="giant-sub">Dileğini tekrar ederek güçlendir</span>
+      </button>
+
+      <button id="settingsBtnMain" class="btn-secondary btn-full">⚙️ Ayarlar</button>
+    </div>
+
+    <div class="section-header">
+      <h3>🫙 Kavanozundaki Dilekler</h3>
+      <div class="filter-row">
+        <select id="categoryFilter">
+          <option value="all">Tümü</option>
+          <option value="love">💕 Aşk</option>
+          <option value="money">💰 Para</option>
+          <option value="health">🏥 Sağlık</option>
+          <option value="career">🚀 Kariyer</option>
+          <option value="family">👨‍👩‍👧 Aile</option>
+          <option value="growth">🌟 Kişisel Gelişim</option>
+          <option value="surprise">🎁 Sürpriz</option>
+        </select>
+        <button id="luckyStarBtn" class="btn-small glow">🎲 Şans Yıldızı</button>
+      </div>
+    </div>
+
+    <div id="wishList" class="wish-list"></div>
+    <div id="emptyWishes" class="empty-state">
+      <div class="empty-jar">🫙</div>
+      <p>Kavanozun henüz boş.</p>
+      <p class="empty-sub">Yukarıdaki büyük butondan ilk dileğini ekle!</p>
+    </div>
+  </main>
+</div>
+
+<!-- 📝 DİLEK EKLEME MODALI -->
+<div id="wishModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" id="closeWishModal">×</button>
+    <h2>✨ Yeni Dilek</h2>
+    
+    <div class="form-group">
+      <label>Kategorin</label>
+      <div class="category-pills">
+        <button class="pill" data-cat="love">💕 Aşk</button>
+        <button class="pill" data-cat="money">💰 Para</button>
+        <button class="pill" data-cat="health">🏥 Sağlık</button>
+        <button class="pill" data-cat="career">🚀 Kariyer</button>
+        <button class="pill" data-cat="family">👨‍👩‍👧 Aile</button>
+        <button class="pill" data-cat="growth">🌟 Gelişim</button>
+        <button class="pill" data-cat="surprise">🎁 Sürpriz</button>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Dileğin</label>
+      <textarea id="wishText" rows="4" placeholder="Kalbinden geçeni yaz..."></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>🎥 Video Ekle (İsteğe Bağlı)</label>
+      <input type="file" id="wishVideo" accept="video/*" class="file-input">
+      <div id="videoPreview" class="video-preview hidden"></div>
+    </div>
+    
+    <button id="saveWishBtn" class="btn-magic btn-full">Kavanoza Ekle 🌟</button>
+  </div>
+</div>
+
+<!-- 💫 MOTİVASYON MODALI -->
+<div id="motivationModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content motivation-card">
+    <button class="modal-close" id="closeMotivationModal">×</button>
+    <div class="motivation-icon">💫</div>
+    <h2>Sana Özel</h2>
+    <p id="motivationQuote" class="quote-text"></p>
+    <div class="motivation-actions">
+      <button id="speakQuoteBtn" class="btn-secondary">🔊 Sesli Oku</button>
+      <button id="newQuoteBtn" class="btn-magic">Başka Söz</button>
+    </div>
+  </div>
+</div>
+
+<!-- 📿 RİTÜEL MODALI -->
+<div id="ritualModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" id="closeRitualModal">×</button>
+
+    <div id="ritualListView">
+      <h2>📿 Ritüel</h2>
+      <p class="settings-desc-inline">Dileğini yaz, tekrar ederek ona güç kat. Kaç kez tekrarlayacağını sen belirle.</p>
+
+      <div class="form-group">
+        <label>Dileğin / Niyetin</label>
+        <textarea id="ritualText" rows="2" placeholder="Örn. Bol bereket ve huzur bana akıyor..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Kaç kez tekrarlayacaksın?</label>
+        <div class="category-pills" id="ritualTargetPills">
+          <button class="pill" data-target="33">33</button>
+          <button class="pill" data-target="66">66</button>
+          <button class="pill" data-target="99">99</button>
+          <button class="pill" data-target="0">Sınırsız</button>
+        </div>
+        <input type="number" id="ritualCustomTarget" placeholder="Ya da kendi sayını yaz" min="1">
+      </div>
+
+      <button id="startRitualBtn" class="btn-magic btn-full">Ritüele Başla 📿</button>
+
+      <div id="activeRitualsList" class="quote-list" style="margin-top:1.2rem;"></div>
+    </div>
+
+    <div id="ritualCounterView" class="hidden">
+      <button id="backToRitualList" class="btn-secondary" style="margin-bottom:1rem;">← Listeye Dön</button>
+      <p id="ritualCounterText" class="quote-text" style="font-size:1rem;min-height:auto;"></p>
+      <div class="ritual-counter-display" id="ritualCounterDisplay">0</div>
+      <p class="ritual-target-label" id="ritualTargetLabel"></p>
+      <button id="ritualTapBtn" class="ritual-tap-btn">📿<br>Tekrarla</button>
+      <div class="ritual-actions">
+        <button id="resetRitualBtn" class="btn-secondary">Sıfırla</button>
+        <button id="deleteRitualBtn" class="btn-danger">Sil</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🎥 VİDEO LIGHTBOX -->
+<div id="videoLightbox" class="lightbox hidden">
+  <div class="lightbox-overlay"></div>
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="closeLightbox">×</button>
+    <video id="lightboxVideo" controls></video>
+  </div>
+</div>
+
+<!-- ⚙️ AYARLAR MENÜSÜ -->
+<div id="settingsMenu" class="side-menu hidden">
+  <div class="side-menu-overlay" id="settingsOverlay"></div>
+  <div class="side-menu-panel">
+    <div class="side-menu-header">
+      <h3>⚙️ Ayarlar</h3>
+      <button id="closeSettings" class="icon-btn">×</button>
+    </div>
+    
+    <div class="setting-item">
+      <span>🌙 Karanlık Tema</span>
+      <label class="toggle">
+        <input type="checkbox" id="darkToggle" checked>
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    
+    <div class="setting-item">
+      <span>🔔 Günlük Bildirim</span>
+      <label class="toggle">
+        <input type="checkbox" id="notifToggle">
+        <span class="toggle-slider"></span>
+      </label>
+      <small class="setting-hint">Her akşam 21:00'de hatırlatma</small>
+    </div>
+    
+    <div class="setting-item">
+      <span>🔐 PIN Koruması</span>
+      <div id="pinSetupArea"></div>
+    </div>
+    
+    <div class="setting-item">
+      <span>✍️ Kendi Sözlerin</span>
+      <div class="custom-quotes-area">
+        <input type="text" id="newQuoteInput" placeholder="Yeni motivasyon sözü...">
+        <button id="addQuoteBtn" class="btn-small">Ekle</button>
+      </div>
+      <div id="customQuoteList" class="quote-list"></div>
+    </div>
+    
+    <div class="setting-item danger-zone">
+      <button id="exportBtn" class="btn-secondary btn-full">📤 Verileri Dışa Aktar</button>
+      <button id="clearBtn" class="btn-danger btn-full">🗑️ Tüm Dilekleri Sil</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🎉 KUTLAMA OVERLAY -->
+<div id="celebrationOverlay" class="celebration hidden">
+  <div class="celebration-text">🎉 Dileğin Gerçekleşti! 🎉</div>
+  <div class="confetti"></div>
+</div>
+
+<script>
+const STORAGE_KEYS = {
+  wishes: 'dk_wishes',
+  pin: 'dk_pin',
+  settings: 'dk_settings',
+  customQuotes: 'dk_custom_quotes',
+  firstVisit: 'dk_first_visit',
+  rituals: 'dk_rituals'
+};
+
+const QUOTES = [
+  "İçindeki ışık, dışarıdaki karanlıktan daha güçlüdür.",
+  "Bugün attığın her adım, yarının haritasını çizer.",
+  "Dilekler sessizce filizlenir, sabırla büyürsün.",
+  "Kendine inanmak, en büyük sihirdir.",
+  "Her yeni gün, yeni bir dilek hakkıdır.",
+  "İçindeki çocuk hâlâ yıldızları sayıyor, onu dinle.",
+  "Sen yeter ki dile, evren nasıl olacağını bilir.",
+  "Küçük bir umut, büyük bir değişimin tohumudur.",
+  "Bugün kendine bir söz ver: Asla vazgeçmeyeceksin.",
+  "Dileklerin kadar güçlüsün, unutma.",
+  "Yıldızlar karanlıkta parlar, sen de öylesin.",
+  "Her zorluğun ardından, daha güçlü bir sen vardır.",
+  "Kendini sevmek, en güzel dileğindir.",
+  "Bugün seni gülümseten bir an yarat.",
+  "İçindeki sessiz sesi duy, o senin gerçek pusulandır.",
+  "Dileklerin sınırsızdır, sınırı sen koyarsın.",
+  "Yarın için endişelenme, bugün için şükret.",
+  "Kendine karşı nazik ol, en değerli hazin sensin.",
+  "Her nefes yeni bir başlangıçtır.",
+  "Dilek tutmak cesaret ister, sen cesursun.",
+  "Parlamak zorunda değilsin, sadece ışık ol yeter.",
+  "Bugün kendine: 'Yeterince iyiyim' de.",
+  "Küçük adımlar, devasa yolculuklara çıkar.",
+  "İçindeki umut, dışarıdaki fırtınadan büyüktür.",
+  "Sen bir kavanoz değilsin, bir galaksisin.",
+];
+
+const CATEGORY_LABELS = {
+  love: '💕 Aşk',
+  money: '💰 Para',
+  health: '🏥 Sağlık',
+  career: '🚀 Kariyer',
+  family: '👨‍👩‍👧 Aile',
+  growth: '🌟 Gelişim',
+  surprise: '🎁 Sürpriz'
+};
+
+let wishes = [];
+let selectedCategory = null;
+let currentVideoBase64 = null;
+let currentRitualId = null;
+let selectedRitualTarget = null;
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.wishes);
+    wishes = raw ? JSON.parse(raw) : [];
+  } catch (e) { wishes = []; }
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEYS.wishes, JSON.stringify(wishes));
+}
+
+function loadSettings() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.settings);
+    return raw ? JSON.parse(raw) : { darkMode: true, notifications: false };
+  } catch (e) { return { darkMode: true, notifications: false }; }
+}
+
+function saveSettings(s) {
+  localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(s));
+}
+
+function applyTheme(settings) {
+  document.body.classList.toggle('light-theme', !settings.darkMode);
+}
+
+function loadCustomQuotes() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.customQuotes);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) { return []; }
+}
+
+function saveCustomQuotes(list) {
+  localStorage.setItem(STORAGE_KEYS.customQuotes, JSON.stringify(list));
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function todayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function calcStreak() {
+  if (wishes.length === 0) return 0;
+  const days = new Set(wishes.map(w => w.date.slice(0, 10)));
+  let streak = 0;
+  let cursor = new Date();
+  while (true) {
+    const key = cursor.toISOString().slice(0, 10);
+    if (days.has(key)) {
+      streak++;
+      cursor.setDate(cursor.getDate() - 1);
+    } else break;
+  }
+  return streak;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function initWelcome() {
+  const visited = localStorage.getItem(STORAGE_KEYS.firstVisit);
+  if (visited) {
+    checkLock();
+    return;
+  }
+  document.getElementById('startBtn').addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEYS.firstVisit, 'true');
+    checkLock();
+  });
+}
+
+function checkLock() {
+  const savedPin = localStorage.getItem(STORAGE_KEYS.pin);
+  if (savedPin) {
+    showScreen('lockScreen');
+    initLock();
+  } else {
+    showApp();
+  }
+}
+
+function initLock() {
+  const input = document.getElementById('pinInput');
+  const btn = document.getElementById('pinSubmit');
+  btn.addEventListener('click', tryUnlock);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') tryUnlock();
+  });
+  input.focus();
+}
+
+function tryUnlock() {
+  const savedPin = localStorage.getItem(STORAGE_KEYS.pin);
+  const input = document.getElementById('pinInput').value;
+  if (input === savedPin) {
+    showApp();
+  } else {
+    document.getElementById('pinError').classList.remove('hidden');
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+  }
+}
+
+function showApp() {
+  applyTheme(loadSettings());
+  showScreen('app');
+  renderStats();
+  renderWishes();
+  initMenu();
+  initWishModal();
+  initMotivationModal();
+  initRitualModal();
+  initVideoLightbox();
+  initLuckyStar();
+  initSettings();
+  initNotifications();
+  if (Math.random() > 0.7 && wishes.length > 0) {
+    showLuckyStar();
+  }
+}
+
+function renderStats() {
+  document.getElementById('statTotal').textContent = wishes.length;
+  document.getElementById('statDone').textContent = wishes.filter(w => w.completed).length;
+  document.getElementById('statStreak').textContent = calcStreak();
+}
+
+function renderWishes(filter = 'all') {
+  const list = document.getElementById('wishList');
+  const empty = document.getElementById('emptyWishes');
+  list.innerHTML = '';
+  let filtered = wishes;
+  if (filter !== 'all') {
+    filtered = wishes.filter(w => w.category === filter);
+  }
+  filtered = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
+  if (filtered.length === 0) {
+    empty.classList.remove('hidden');
+    list.classList.add('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+  list.classList.remove('hidden');
+  filtered.forEach(wish => {
+    const card = document.createElement('div');
+    card.className = 'wish-card' + (wish.completed ? ' completed' : '');
+    const catLabel = CATEGORY_LABELS[wish.category] || '📝 Diğer';
+    const catClass = 'cat-' + (wish.category || 'surprise');
+    let videoHtml = '';
+    if (wish.video) {
+      videoHtml = `<span class="video-badge" data-id="${wish.id}">🎥 Videoyu İzle</span>`;
+    }
+    card.innerHTML = `
+      <div class="wish-card-header">
+        <span class="wish-category ${catClass}">${catLabel}</span>
+        <span class="wish-date">${formatDate(wish.date)}</span>
+      </div>
+      <p class="wish-text">${escapeHtml(wish.text)}</p>
+      <div class="wish-actions">
+        ${videoHtml}
+        <button class="btn-done" data-id="${wish.id}">${wish.completed ? '⭐ Gerçekleşti' : '✨ Gerçekleşti'}</button>
+        <button class="btn-delete" data-id="${wish.id}">🗑️ Sil</button>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+  list.querySelectorAll('.btn-done').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      const wish = wishes.find(w => w.id === id);
+      if (wish) {
+        wish.completed = !wish.completed;
+        if (wish.completed) {
+          wish.completedDate = new Date().toISOString();
+          showCelebration();
+        } else {
+          wish.completedDate = null;
+        }
+        saveData();
+        renderWishes(document.getElementById('categoryFilter').value);
+        renderStats();
+      }
+    });
+  });
+  list.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (confirm('Bu dileği kavanozundan çıkarıyorsun. Emin misin?')) {
+        wishes = wishes.filter(w => w.id !== btn.dataset.id);
+        saveData();
+        renderWishes(document.getElementById('categoryFilter').value);
+        renderStats();
+      }
+    });
+  });
+  list.querySelectorAll('.video-badge').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wish = wishes.find(w => w.id === btn.dataset.id);
+      if (wish && wish.video) {
+        openVideoLightbox(wish.video);
+      }
+    });
+  });
+}
+
+function initCategoryFilter() {
+  document.getElementById('categoryFilter').addEventListener('change', (e) => {
+    renderWishes(e.target.value);
+  });
+}
+
+function initWishModal() {
+  const modal = document.getElementById('wishModal');
+  const btn = document.getElementById('wishBtn');
+  const close = document.getElementById('closeWishModal');
+  const save = document.getElementById('saveWishBtn');
+  const overlay = modal.querySelector('.modal-overlay');
+  btn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    selectedCategory = null;
+    currentVideoBase64 = null;
+    document.getElementById('wishText').value = '';
+    document.getElementById('wishVideo').value = '';
+    document.getElementById('videoPreview').classList.add('hidden');
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+  });
+  close.addEventListener('click', () => modal.classList.add('hidden'));
+  overlay.addEventListener('click', () => modal.classList.add('hidden'));
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+      selectedCategory = pill.dataset.cat;
+    });
+  });
+  document.getElementById('wishVideo').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Video 5MB'dan küçük olmalı. Daha küçük bir video seç.");
+      e.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      currentVideoBase64 = ev.target.result;
+      const preview = document.getElementById('videoPreview');
+      preview.innerHTML = `<video src="${currentVideoBase64}" controls></video>`;
+      preview.classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+  });
+  save.addEventListener('click', () => {
+    const text = document.getElementById('wishText').value.trim();
+    if (!text) {
+      document.getElementById('wishText').focus();
+      document.getElementById('wishText').style.borderColor = '#ef4444';
+      setTimeout(() => document.getElementById('wishText').style.borderColor = '', 800);
+      return;
+    }
+    if (!selectedCategory) selectedCategory = 'surprise';
+    const wish = {
+      id: Date.now().toString(),
+      date: new Date().toISOString(),
+      text: text,
+      category: selectedCategory,
+      video: currentVideoBase64,
+      completed: false,
+      completedDate: null
+    };
+    try {
+      wishes.unshift(wish);
+      saveData();
+    } catch (e) {
+      wishes.shift();
+      alert('Video kaydedilemedi, hafıza dolu olabilir. Daha kısa bir video dene veya videosuz kaydet.');
+      return;
+    }
+    modal.classList.add('hidden');
+    renderWishes(document.getElementById('categoryFilter').value);
+    renderStats();
+    showMiniCelebration();
+  });
+}
+
+function initMotivationModal() {
+  const modal = document.getElementById('motivationModal');
+  const btn = document.getElementById('motivationBtn');
+  const close = document.getElementById('closeMotivationModal');
+  const overlay = modal.querySelector('.modal-overlay');
+  const newQuote = document.getElementById('newQuoteBtn');
+  const speak = document.getElementById('speakQuoteBtn');
+  btn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    showRandomQuote();
+  });
+  close.addEventListener('click', () => modal.classList.add('hidden'));
+  overlay.addEventListener('click', () => modal.classList.add('hidden'));
+  newQuote.addEventListener('click', showRandomQuote);
+  speak.addEventListener('click', () => {
+    const text = document.getElementById('motivationQuote').textContent;
+    if ('speechSynthesis' in window) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'tr-TR';
+      utter.rate = 0.9;
+      window.speechSynthesis.speak(utter);
+    } else {
+      alert('Tarayıcın sesli okumayı desteklemiyor.');
+    }
+  });
+}
+
+function showRandomQuote() {
+  const custom = loadCustomQuotes();
+  const pool = custom.length > 0 ? QUOTES.concat(custom) : QUOTES;
+  const quote = pool[Math.floor(Math.random() * pool.length)];
+  document.getElementById('motivationQuote').textContent = quote;
+}
+
+// ---------- RİTÜEL (ZİKİRMATİK) ----------
+function loadRituals() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.rituals);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) { return []; }
+}
+
+function saveRituals(list) {
+  localStorage.setItem(STORAGE_KEYS.rituals, JSON.stringify(list));
+}
+
+function initRitualModal() {
+  const modal = document.getElementById('ritualModal');
+  const btn = document.getElementById('ritualBtn');
+  const close = document.getElementById('closeRitualModal');
+  const overlay = modal.querySelector('.modal-overlay');
+
+  btn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    showRitualListView();
+  });
+  close.addEventListener('click', () => modal.classList.add('hidden'));
+  overlay.addEventListener('click', () => modal.classList.add('hidden'));
+
+  document.querySelectorAll('#ritualTargetPills .pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('#ritualTargetPills .pill').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+      selectedRitualTarget = parseInt(pill.dataset.target, 10);
+      document.getElementById('ritualCustomTarget').value = '';
+    });
+  });
+
+  document.getElementById('ritualCustomTarget').addEventListener('input', () => {
+    document.querySelectorAll('#ritualTargetPills .pill').forEach(p => p.classList.remove('selected'));
+    selectedRitualTarget = null;
+  });
+
+  document.getElementById('startRitualBtn').addEventListener('click', () => {
+    const textEl = document.getElementById('ritualText');
+    const text = textEl.value.trim();
+    if (!text) {
+      textEl.focus();
+      textEl.style.borderColor = '#ef4444';
+      setTimeout(() => { textEl.style.borderColor = ''; }, 800);
+      return;
+    }
+
+    const customVal = document.getElementById('ritualCustomTarget').value;
+    let target = null;
+    if (customVal) {
+      target = parseInt(customVal, 10);
+    } else if (selectedRitualTarget !== null) {
+      target = selectedRitualTarget === 0 ? null : selectedRitualTarget;
+    }
+
+    const rituals = loadRituals();
+    const ritual = {
+      id: Date.now().toString(),
+      text: text,
+      target: target,
+      count: 0,
+      completed: false,
+      createdDate: new Date().toISOString(),
+    };
+    rituals.unshift(ritual);
+    saveRituals(rituals);
+
+    textEl.value = '';
+    document.getElementById('ritualCustomTarget').value = '';
+    document.querySelectorAll('#ritualTargetPills .pill').forEach(p => p.classList.remove('selected'));
+    selectedRitualTarget = null;
+
+    openRitualCounter(ritual.id);
+  });
+
+  document.getElementById('backToRitualList').addEventListener('click', showRitualListView);
+  document.getElementById('ritualTapBtn').addEventListener('click', incrementRitual);
+
+  document.getElementById('resetRitualBtn').addEventListener('click', () => {
+    const rituals = loadRituals();
+    const r = rituals.find(x => x.id === currentRitualId);
+    if (r) {
+      r.count = 0;
+      r.completed = false;
+      saveRituals(rituals);
+      renderRitualCounter(r);
+    }
+  });
+
+  document.getElementById('deleteRitualBtn').addEventListener('click', () => {
+    if (confirm('Bu ritüeli silmek istediğine emin misin?')) {
+      const rituals = loadRituals().filter(x => x.id !== currentRitualId);
+      saveRituals(rituals);
+      showRitualListView();
+    }
+  });
+}
+
+function showRitualListView() {
+  document.getElementById('ritualListView').classList.remove('hidden');
+  document.getElementById('ritualCounterView').classList.add('hidden');
+  renderRitualsList();
+}
+
+function renderRitualsList() {
+  const list = document.getElementById('activeRitualsList');
+  const rituals = loadRituals();
+  if (rituals.length === 0) {
+    list.innerHTML = `<p style="color:var(--text-secondary);font-size:0.85rem">Henüz bir ritüelin yok.</p>`;
+    return;
+  }
+  list.innerHTML = rituals.map(r => {
+    const progress = r.target ? `${r.count} / ${r.target}` : `${r.count} (Sınırsız)`;
+    return `
+      <div class="ritual-item ${r.completed ? 'completed' : ''}" data-id="${r.id}">
+        <div class="ritual-item-top">
+          <span class="ritual-item-text">${r.completed ? '✨ ' : ''}${escapeHtml(r.text)}</span>
+          <span class="ritual-item-progress">${progress}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  list.querySelectorAll('.ritual-item').forEach(item => {
+    item.addEventListener('click', () => openRitualCounter(item.dataset.id));
+  });
+}
+
+function openRitualCounter(id) {
+  currentRitualId = id;
+  const rituals = loadRituals();
+  const r = rituals.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('ritualListView').classList.add('hidden');
+  document.getElementById('ritualCounterView').classList.remove('hidden');
+  renderRitualCounter(r);
+}
+
+function renderRitualCounter(r) {
+  document.getElementById('ritualCounterText').textContent = r.text;
+  document.getElementById('ritualCounterDisplay').textContent = r.count;
+  document.getElementById('ritualTargetLabel').textContent = r.target ? `Hedef: ${r.target}` : 'Sınırsız tekrar';
+}
+
+function incrementRitual() {
+  const rituals = loadRituals();
+  const r = rituals.find(x => x.id === currentRitualId);
+  if (!r) return;
+  r.count++;
+  if (r.target && r.count >= r.target && !r.completed) {
+    r.completed = true;
+    saveRituals(rituals);
+    renderRitualCounter(r);
+    showCelebration();
+    return;
+  }
+  saveRituals(rituals);
+  renderRitualCounter(r);
+}
+
+function initVideoLightbox() {
+  const lightbox = document.getElementById('videoLightbox');
+  document.getElementById('closeLightbox').addEventListener('click', () => {
+    lightbox.classList.add('hidden');
+    document.getElementById('lightboxVideo').pause();
+  });
+  lightbox.querySelector('.lightbox-overlay').addEventListener('click', () => {
+    lightbox.classList.add('hidden');
+    document.getElementById('lightboxVideo').pause();
+  });
+}
+
+function openVideoLightbox(base64) {
+  const lightbox = document.getElementById('videoLightbox');
+  const video = document.getElementById('lightboxVideo');
+  video.src = base64;
+  lightbox.classList.remove('hidden');
+  video.play();
+}
+
+function initLuckyStar() {
+  document.getElementById('luckyStarBtn').addEventListener('click', showLuckyStar);
+  document.getElementById('luckyClose').addEventListener('click', () => {
+    document.getElementById('luckyStarCard').classList.add('hidden');
+  });
+}
+
+function showLuckyStar() {
+  if (wishes.length === 0) return;
+  const wish = wishes[Math.floor(Math.random() * wishes.length)];
+  const card = document.getElementById('luckyStarCard');
+  document.getElementById('luckyText').textContent = wish.text;
+  card.classList.remove('hidden');
+}
+
+function showCelebration() {
+  const overlay = document.getElementById('celebrationOverlay');
+  overlay.classList.remove('hidden');
+  setTimeout(() => overlay.classList.add('hidden'), 2500);
+}
+
+function showMiniCelebration() {
+  const btn = document.getElementById('wishBtn');
+  btn.style.transform = 'scale(1.05)';
+  btn.style.boxShadow = '0 0 30px rgba(255,215,0,0.5)';
+  setTimeout(() => {
+    btn.style.transform = '';
+    btn.style.boxShadow = '';
+  }, 600);
+}
+
+function initMenu() {
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('settingsMenu').classList.remove('hidden');
+  });
+  document.getElementById('settingsBtnMain').addEventListener('click', () => {
+    document.getElementById('settingsMenu').classList.remove('hidden');
+  });
+}
+
+function initSettings() {
+  const menu = document.getElementById('settingsMenu');
+  const overlay = document.getElementById('settingsOverlay');
+  const close = document.getElementById('closeSettings');
+  close.addEventListener('click', () => menu.classList.add('hidden'));
+  overlay.addEventListener('click', () => menu.classList.add('hidden'));
+  const settings = loadSettings();
+  document.getElementById('darkToggle').checked = settings.darkMode;
+  document.getElementById('darkToggle').addEventListener('change', (e) => {
+    settings.darkMode = e.target.checked;
+    saveSettings(settings);
+    applyTheme(settings);
+  });
+  document.getElementById('notifToggle').checked = settings.notifications;
+  document.getElementById('notifToggle').addEventListener('change', (e) => {
+    settings.notifications = e.target.checked;
+    saveSettings(settings);
+    if (settings.notifications) {
+      requestNotificationPermission();
+    }
+  });
+  renderPinSetup();
+  renderCustomQuotes();
+  document.getElementById('addQuoteBtn').addEventListener('click', addCustomQuote);
+  document.getElementById('newQuoteInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addCustomQuote();
+  });
+  document.getElementById('exportBtn').addEventListener('click', exportData);
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    if (confirm('TÜM dileklerini silmek üzeresin. Bu geri alınamaz! Emin misin?')) {
+      wishes = [];
+      saveData();
+      renderWishes();
+      renderStats();
+      menu.classList.add('hidden');
+    }
+  });
+}
+
+function renderPinSetup() {
+  const area = document.getElementById('pinSetupArea');
+  const savedPin = localStorage.getItem(STORAGE_KEYS.pin);
+  if (savedPin) {
+    area.innerHTML = `
+      <button id="removePinBtn" class="btn-secondary btn-full" style="margin-top:0.5rem">🔓 PIN Korumasını Kaldır</button>
+    `;
+    document.getElementById('removePinBtn').addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_KEYS.pin);
+      renderPinSetup();
+    });
+  } else {
+    area.innerHTML = `
+      <input type="password" id="newPinInput" inputmode="numeric" maxlength="6" placeholder="4-6 haneli PIN">
+      <button id="setPinBtn" class="btn-magic btn-full" style="margin-top:0.5rem">🔐 PIN Belirle</button>
+    `;
+    document.getElementById('setPinBtn').addEventListener('click', () => {
+      const val = document.getElementById('newPinInput').value.trim();
+      if (val.length >= 4) {
+        localStorage.setItem(STORAGE_KEYS.pin, val);
+        renderPinSetup();
+      } else {
+        alert('PIN en az 4 haneli olmalı.');
+      }
+    });
+  }
+}
+
+function renderCustomQuotes() {
+  const list = document.getElementById('customQuoteList');
+  const quotes = loadCustomQuotes();
+  if (quotes.length === 0) {
+    list.innerHTML = `<p style="color:var(--text-secondary);font-size:0.85rem">Henüz kendi sözünü eklemedin.</p>`;
+    return;
+  }
+  list.innerHTML = quotes.map((q, i) => `
+    <div class="quote-item">
+      <span>"${escapeHtml(q)}"</span>
+      <button data-index="${i}">Sil</button>
+    </div>
+  `).join('');
+  list.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.index);
+      const updated = loadCustomQuotes();
+      updated.splice(idx, 1);
+      saveCustomQuotes(updated);
+      renderCustomQuotes();
+    });
+  });
+}
+
+function addCustomQuote() {
+  const input = document.getElementById('newQuoteInput');
+  const val = input.value.trim();
+  if (!val) return;
+  const quotes = loadCustomQuotes();
+  quotes.push(val);
+  saveCustomQuotes(quotes);
+  input.value = '';
+  renderCustomQuotes();
+}
+
+function exportData() {
+  const data = {
+    wishes: wishes,
+    exportedAt: new Date().toISOString(),
+    app: 'Dilek Kavanozu'
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `dilek-kavanozu-${todayKey()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function initNotifications() {
+  const settings = loadSettings();
+  if (settings.notifications) {
+    requestNotificationPermission();
+  }
+  setInterval(checkDailyReminder, 60000);
+}
+
+function requestNotificationPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+function checkDailyReminder() {
+  const settings = loadSettings();
+  if (!settings.notifications) return;
+  const now = new Date();
+  if (now.getHours() === 21 && now.getMinutes() === 0) {
+    const todayWishes = wishes.filter(w => w.date.startsWith(todayKey()));
+    if (todayWishes.length === 0) {
+      sendNotification('Dilek Kavanozu', 'Bugün henüz bir dilek tutmadın. Yıldızlar seni bekliyor ✨');
+    }
+  }
+}
+
+function sendNotification(title, body) {
+  if ('Notification' in window && Notification.permission === 'granted') {
+    new Notification(title, {
+      body: body,
+      icon: 'icon-192.png',
+      badge: 'icon-192.png'
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+  initWelcome();
+  initCategoryFilter();
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
+</script>
+</body>
+</html>
+
