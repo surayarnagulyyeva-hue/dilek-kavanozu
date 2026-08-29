@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dilek-kavanozu-v5';
+const CACHE_NAME = 'dilek-kavanozu-v6';
 const urlsToCache = [
   './',
   './index.html',
