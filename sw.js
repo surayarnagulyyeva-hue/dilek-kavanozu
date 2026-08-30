@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dilek-kavanozu-v6';
+const CACHE_NAME = 'dilek-kavanozu-v7';
 const urlsToCache = [
   './',
   './index.html',
@@ -9,8 +9,17 @@ const urlsToCache = [
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(cache => {
+      // Her dosyayı ayrı ayrı önbelleğe al: biri başarısız olsa bile
+      // (örn. eksik/yanlış isimli bir ikon) diğerleri kaydedilmeye devam eder.
+      return Promise.all(
+        urlsToCache.map(url =>
+          cache.add(url).catch(err => {
+            console.warn('Önbelleğe alınamadı, atlanıyor:', url, err);
+          })
+        )
+      );
+    })
   );
   self.skipWaiting();
 });
@@ -39,7 +48,13 @@ self.addEventListener('fetch', event => {
           }
           return response;
         })
-        .catch(() => cached);
+        .catch(() => {
+          // Ağ yoksa ve bu bir sayfa isteğiyse, önbellekteki index.html'i döndür
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+          return cached;
+        });
       return cached || networkFetch;
     })
   );
